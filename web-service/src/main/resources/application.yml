@@ -1,0 +1,7 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /staff
+
+rest-service:
+  request-url: http://localhost:8081/api/%s

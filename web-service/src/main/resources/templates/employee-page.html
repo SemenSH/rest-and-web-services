@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script th:src="@{assets/bootstrap-select-1.13.9/dist/js/bootstrap-select.js}"></script>
+
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" type="text/css"/>
+</head>
+
+<body>
+<div class="wrapper">
+    <nav>
+        <div th:replace="~{menu :: menu(employees)}">
+        </div>
+    </nav>
+    <div class="content">
+        <h2>Персонал</h2>
+        <div class="search-container">
+            <form class="form-inline" action="#" th:action="@{/search}" th:object="${searchRequest}" method="post">
+                <div class="form-row">
+                    <div class="col">
+                        <label for="date">Дата: </label>
+                    </div>
+                    <div class="col">
+                        <input th:field="*{singleDate}" type="date" class="form-control" id="date">
+                    </div>
+                    <div class="col">
+                        <label for="firstDatePeriod">Период дат: </label>
+                    </div>
+                    <div class="col">
+                        <input th:field="*{firstDate}"  type="date" class="form-control" id="firstDatePeriod">
+                    </div>
+                    <div class="col">
+                        <input th:field="*{secondDate}" type="date" class="form-control" id="secondDatePeriod">
+                    </div>
+                    <div class="col">
+                        <button class="btn btn btn-outline-info my-2 my-sm-0" type="submit">Найти</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table class="table table-hover">
+            <thead class="table-primary">
+            <tr>
+                <th>#</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Департамент</th>
+                <th>Дата рождения</th>
+                <th>Зарплата</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tr class="responsive-row" th:each="employee : ${employees}">
+                <td th:text="${employee.id}"/>
+                <td th:text="${employee.lastName}"/>
+                <td th:text="${employee.firstName}"/>
+                <td th:text="${employee.middleName}"/>
+                <td th:text="${employee.departmentDto.name}"/>
+                <td th:text="${employee.getDateOfBirthAsString()}"/>
+                <td th:text="${employee.salary}"/>
+                <td>
+                    <a th:href="@{'/change/' + ${employee.id}}" class="btn btn-outline-warning"
+                       role="button" aria-pressed="true">Изменить</a>
+                <td/>
+                <td>
+                    <a th:href="@{'/remove/' + ${employee.id}}" class="btn btn-outline-danger"
+                       role="button" aria-pressed="true">Удалить</a>
+                <td/>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

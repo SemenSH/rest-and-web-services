@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script th:src="@{assets/bootstrap-select-1.13.9/dist/js/bootstrap-select.js}"></script>
+
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" type="text/css"/>
+</head>
+<body>
+<div class="wrapper">
+    <nav>
+        <div th:replace="~{menu :: menu(employees)}">
+        </div>
+    </nav>
+    <div class="content">
+        <h2>Отделы</h2>
+
+        <table class="table table-hover">
+<!--            <thead class="table-primary">-->
+<!--            <tr>-->
+<!--                <th>#</th>-->
+<!--                <th>Отдел закупок</th>-->
+<!--                <th>Отдел маркетинга</th>-->
+<!--                <th>Бухгалтерия</th>-->
+<!--                <th>Отдел управления персоналом</th>-->
+<!--                <th>Юридический отдел</th>-->
+<!--                <th>Служба безопасности</th>-->
+<!--                <th>Отдел информационных технологий</th>-->
+<!--                <th></th>-->
+<!--                <th></th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+            <tr class="responsive-row" th:each="department : ${departments}">
+                <td th:text="${department.id}"/>
+                <td th:text="${department.name}"/>
+                <td Сред/>
+                <td>
+                    <a th:href="@{'/departments/change/' + ${department.id}}" class="btn btn-outline-warning"
+                       role="button" aria-pressed="true">Изменить</a>
+                <td/>
+                <td>
+                    <a th:href="@{'/departments/remove/' + ${department.id}}" class="btn btn-outline-danger"
+                       role="button" aria-pressed="true">Удалить</a>
+                <td/>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
